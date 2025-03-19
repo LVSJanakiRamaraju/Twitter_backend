@@ -16,7 +16,7 @@ packages:
       nopt: 5.0.0
       npmlog: 5.0.1
       rimraf: 3.0.2
-      semver: 7.6.3
+      semver: 7.7.1
       tar: 6.2.1
     dev: false
     hasBin: true
@@ -51,7 +51,7 @@ packages:
       integrity: sha512-PYAthTa2m2VKxuvSD3DPC/Gy+U+sOA1LAuT8mkmRuvw+NACSaeXEQ+NHcVF7rONl6qcaxV3Uuemwawk+7+SJLw==
   /agent-base/6.0.2:
     dependencies:
-      debug: 4.3.7
+      debug: 4.4.0
     dev: false
     engines:
       node: '>= 6.0.0'
@@ -443,7 +443,7 @@ packages:
     dev: false
     resolution:
       integrity: sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==
-  /debug/4.3.7:
+  /debug/4.4.0:
     dependencies:
       ms: 2.1.3
     dev: false
@@ -455,7 +455,7 @@ packages:
       supports-color:
         optional: true
     resolution:
-      integrity: sha512-Er2nc/H7RrMXZBFCEim6TCmMk02Z8vLC2Rbi1KEBggpo0fS6l0S1nnapwmIi3yW/+GOJap1Krg4w0Hg80oCqgQ==
+      integrity: sha512-6WTZ/IxCY/T6BALoZHaE4ctp9xm+Z5kY/pzYaCHRFeyVhojxlrm+46y68HA6hr0TcwEssoxNiDEUJQjfPZ/RYA==
   /decompress-response/3.3.0:
     dependencies:
       mimic-response: 1.0.1
@@ -906,7 +906,7 @@ packages:
   /https-proxy-agent/5.0.1:
     dependencies:
       agent-base: 6.0.2
-      debug: 4.3.7
+      debug: 4.4.0
     dev: false
     engines:
       node: '>= 6'
@@ -1596,11 +1596,13 @@ packages:
       node: '>= 0.10'
     resolution:
       integrity: sha512-llQsMLSUDUPT44jdrU/O37qlnifitDP+ZwrmmZcoSKyLKvtZxpyV0n2/bD/N4tBAAZ/gJEdZU7KMraoK1+XYAg==
-  /psl/1.9.0:
+  /psl/1.15.0:
+    dependencies:
+      punycode: 2.3.1
     dev: false
     optional: true
     resolution:
-      integrity: sha512-E/ZsdU4HLs/68gYzgGTkMicWTLPdAftJLfJFlLUAAKZGkStNU72sZjT66SnMDVOfOWY/YAoiD7Jxa9iHvngcag==
+      integrity: sha512-JZd3gMVBAVQkSs6HdNZo9Sdo0LNcQeMNP3CozBJb3JYC/QUYZTnKxP+f8oWRX4rHP5EurWxqAHTSwUCjlNKa1w==
   /pstree.remy/1.1.8:
     dev: false
     resolution:
@@ -1804,13 +1806,13 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==
-  /semver/7.6.3:
+  /semver/7.7.1:
     dev: false
     engines:
       node: '>=10'
     hasBin: true
     resolution:
-      integrity: sha512-oVekP1cKtI+CTDvHWYFUcMtsK/00wmAEfyqKfNdARm8u1wNVhSgaX7A8d4UuIlUI5e84iEwOhs7ZPYRmzU9U6A==
+      integrity: sha512-hlq8tAfn0m/61p4BVRcPzIGr6LKiMwo4VM6dGi6pt4qcRkmNzTcWq6eCEjEh+qXjkMDvPlOFFSGwQjoEa6gyMA==
   /send/0.17.1:
     dependencies:
       debug: 2.6.9
@@ -2035,7 +2037,7 @@ packages:
       integrity: sha512-r0eojU4bI8MnHr8c5bNo7lJDdI2qXlWWJk6a9EAFG7vbhTjElYhBVS3/miuE0uOuoLdb8Mc/rVfsmm6eo5o9GA==
   /tough-cookie/2.5.0:
     dependencies:
-      psl: 1.9.0
+      psl: 1.15.0
       punycode: 2.3.1
     dev: false
     engines:
