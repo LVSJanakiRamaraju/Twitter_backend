@@ -127,7 +127,25 @@ const isUserFollowing = async (request, response, next) => {
   }
 }
 
+//API - 3
+app.get('/user/tweets/feed/', authenticateToken, async (request, response) => {
+  const {username} = request.headers
+  const getUserQuery = `
+    SELECT * FROM user WHERE username = '${username}';`
+  const dbUser = await db.get(getUserQuery)
+  const userId = dbUser['user_id']
 
+  const query = `
+    SELECT username, tweet, date_time As dateTime
+    FROM follower INNER JOIN tweet
+    ON follower.following_user_id = tweet.user_id
+    NATURAL JOIN user
+    WHERE follower.follower_user_id = ${userId}
+    ORDER BY dateTime DESC
+    LIMIT 4`
 
+  const data = await db.all(query)
+  response.send(data)
+})
 
 module.exports = app
