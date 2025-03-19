@@ -27,6 +27,54 @@ const initializeDbAndServer = async () => {
 }
 initializeDbAndServer()
 
+//API: Register New User
+app.post('/register/', async (request, response) => {
+  const {username, password, name, gender} = request.body
+
+  const userCheckQuery = `
+    SELECT * FROM user WHERE username = '${username}';`
+  const dbUser = await db.get(userCheckQuery)
+  if (dbUser === undefined) {
+    if (password.length < 6) {
+      response.status(400)
+      response.send('Password is too short')
+    } else {
+      const hashPassword = await bcrypt.hash(password, 10)
+      const registerUserQuery = `
+            INSERT INTO 
+                user(username, password, name, gender)
+            VALUES
+                ('${username}', '${hashPassword}', '${name}', '${gender}');`
+      await db.run(registerUserQuery)
+      response.send('User created successfully')
+    }
+  } else {
+    response.status(400)
+    response.send('User already exists')
+  }
+})
+const authenticateToken = (request, response, next) => {
+  let jwtToken
+  const authHeader = request.headers['authorization']
+  if (authHeader !== undefined) {
+    jwtToken = authHeader.split(' ')[1]
+  }
+  if (jwtToken === undefined) {
+    response.status(401)
+    response.send('Invalid JWT Token')
+  } else {
+    jwt.verify(jwtToken, 'SECRET_KEY', async (error, payLoad) => {
+      if (error) {
+        response.status(401)
+        response.send('Invalid JWT Token')
+      } else {
+        request.headers.username = payLoad.username
+        next()
+      }
+    })
+  }
+}
+
 
 
 
