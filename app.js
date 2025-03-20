@@ -211,4 +211,23 @@ app.get(
   },
 )
 
+//API 7
+app.get(
+  '/tweets/:tweetId/likes/',
+  authenticateToken,
+  isUserFollowing,
+  async (request, response) => {
+    const {tweetId} = request.params
+    const query = `
+        SELECT username
+        FROM like NATURAL JOIN user
+        WHERE tweet_id = ${tweetId};`
+
+    const data = await db.all(query)
+    const usernamesArray = data.map(each => each.username)
+
+    response.send({likes: usernamesArray})
+  },
+)
+
 module.exports = app
