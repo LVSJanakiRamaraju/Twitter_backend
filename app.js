@@ -27,6 +27,10 @@ const initializeDbAndServer = async () => {
 }
 initializeDbAndServer()
 
+app.get('/', (req, res) => {
+  res.send('Hello, World! Your app is running.')
+})
+
 //API: Register New User
 app.post('/register/', async (request, response) => {
   const {username, password, name, gender} = request.body
@@ -160,6 +164,24 @@ app.get('/user/following/', authenticateToken, async (request, response) => {
     FROM follower INNER JOIN user
     ON follower.following_user_id = user.user_id
     WHERE follower_user_id = ${userId};`
+
+  const data = await db.all(query)
+  response.send(data)
+})
+
+//API 5
+app.get('/user/followers/', authenticateToken, async (request, response) => {
+  const {username} = request.headers
+  const getUserQuery = `
+    SELECT * FROM user WHERE username = '${username}';`
+  const dbUser = await db.get(getUserQuery)
+  const userId = dbUser['user_id']
+
+  const query = `
+    SELECT name
+    FROM follower INNER JOIN user
+    ON follower.follower_user_id = user.user_id
+    WHERE following_user_id = ${userId};`
 
   const data = await db.all(query)
   response.send(data)
