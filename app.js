@@ -148,4 +148,21 @@ app.get('/user/tweets/feed/', authenticateToken, async (request, response) => {
   response.send(data)
 })
 
+//API - 4
+app.get('/user/following/', authenticateToken, async (request, response) => {
+  const {username} = request.headers
+  const getUserQuery = `
+    SELECT * FROM user WHERE username = '${username}';`
+  const dbUser = await db.get(getUserQuery)
+  const userId = dbUser['user_id']
+  const query = `
+    SELECT name 
+    FROM follower INNER JOIN user
+    ON follower.following_user_id = user.user_id
+    WHERE follower_user_id = ${userId};`
+
+  const data = await db.all(query)
+  response.send(data)
+})
+
 module.exports = app
