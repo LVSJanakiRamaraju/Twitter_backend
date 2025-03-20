@@ -285,7 +285,6 @@ app.get('/user/tweets/', authenticateToken, async (request, response) => {
   response.send(likesData)
 })
 
-
 //API 10
 app.post('/user/tweets/', authenticateToken, async (request, response) => {
   const {tweet} = request.body
@@ -302,4 +301,43 @@ app.post('/user/tweets/', authenticateToken, async (request, response) => {
   await db.run(query)
   response.send('Created a Tweet')
 })
+
+//API 11
+app.delete(
+  '/tweets/:tweetId/',
+  authenticateToken,
+  async (request, response) => {
+    const {tweetId} = request.params
+    const {username} = request.headers
+    const getUserQuery = `
+    SELECT * FROM user WHERE username = '${username}';`
+    const dbUser = await db.get(getUserQuery)
+    const userId = dbUser['user_id']
+
+    const userTweetsQuery = `
+    SELECT tweet_id, user_id 
+    FROM tweet
+    WHERE user_id = ${userId};`
+    const userTweetsData = await db.all(userTweetsQuery)
+
+    let isTweetUsers = false
+    userTweetsData.forEach(each => {
+      if (each['tweet_id'] == tweetId) {
+        isTweetUsers = true
+      }
+    })
+
+    if (isTweetUsers) {
+      const query = `
+        DELETE FROM tweet
+        WHERE tweet_id = ${tweetId};`
+      await db.run(query)
+      response.send('Tweet Removed')
+    } else {
+      response.status(401)
+      response.send('Invalid Request')
+    }
+  },
+)
+
 module.exports = app
