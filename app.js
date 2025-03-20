@@ -286,4 +286,20 @@ app.get('/user/tweets/', authenticateToken, async (request, response) => {
 })
 
 
+//API 10
+app.post('/user/tweets/', authenticateToken, async (request, response) => {
+  const {tweet} = request.body
+  const {username} = request.headers
+  const getUserQuery = `
+    SELECT * FROM user WHERE username = '${username}';`
+  const dbUser = await db.get(getUserQuery)
+  const userId = dbUser['user_id']
+
+  const query = `
+    INSERT INTO 
+        tweet(tweet, user_id)
+    VALUES ('${tweet}', ${userId});`
+  await db.run(query)
+  response.send('Created a Tweet')
+})
 module.exports = app

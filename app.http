@@ -45,7 +45,14 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZ
 GET http://localhost:3000/user/tweets/
 Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZUJpZGVuIiwiaWF0IjoxNjc5NTYzNzMzfQ.Q8j1baMp4Wr4NH1fTlTDHHsl2PZEk9MfJj-QMQytb0E 
 
+###
+POST http://localhost:3000/user/tweets/
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZUJpZGVuIiwiaWF0IjoxNjc5NTYzNzMzfQ.Q8j1baMp4Wr4NH1fTlTDHHsl2PZEk9MfJj-QMQytb0E 
+Content-Type: application/json
 
+{
+   "tweet": "The Mornings..."
+}
 
 ###
 {"jwtToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZUJpZGVuIiwiaWF0IjoxNjc5NTYzNzMzfQ.Q8j1baMp4Wr4NH1fTlTDHHsl2PZEk9MfJj-QMQytb0E"}
