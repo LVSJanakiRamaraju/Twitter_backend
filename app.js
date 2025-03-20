@@ -187,4 +187,28 @@ app.get('/user/followers/', authenticateToken, async (request, response) => {
   response.send(data)
 })
 
+//API 6
+app.get(
+  '/tweets/:tweetId/',
+  authenticateToken,
+  isUserFollowing,
+  async (request, response) => {
+    const {tweetId} = request.params
+    const query = `
+        SELECT tweet, COUNT() AS replies, date_time AS dateTime 
+        FROM tweet INNER JOIN reply
+        ON tweet.tweet_id = reply.tweet_id   
+        WHERE tweet.tweet_id = ${tweetId};`
+    const data = await db.get(query)
+
+    const likesQuery = `
+        SELECT COUNT() AS likes
+        FROM like WHERE tweet_id  = ${tweetId};`
+    const {likes} = await db.get(likesQuery)
+
+    data.likes = likes
+    response.send(data)
+  },
+)
+
 module.exports = app
