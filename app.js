@@ -230,4 +230,23 @@ app.get(
   },
 )
 
+//API 8
+app.get(
+  '/tweets/:tweetId/replies/',
+  authenticateToken,
+  isUserFollowing,
+  async (request, response) => {
+    const {tweetId} = request.params
+    const query = `
+        SELECT name, reply
+        FROM reply NATURAL JOIN user
+        WHERE tweet_id = ${tweetId};`
+
+    const data = await db.all(query)
+    // const namesArray = data.map((each) => each.name);
+
+    response.send({replies: data})
+  },
+)
+
 module.exports = app
